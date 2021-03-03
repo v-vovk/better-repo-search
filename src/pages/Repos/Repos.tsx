@@ -53,47 +53,45 @@ const Repos: React.FC = () => {
   const pagesCount = Math.ceil(totalCount / reposPerPage)
 
   return (
-    <>
-      <Layout className='layout'>
-        <Content className='layout__container'>
-          <div className='site-layout-content'>
-            {error && <AlertBar error={error} />}
-            <Space style={{ width: '100%', marginBottom: '20px' }}>
-              <Input
-                placeholder='Search repo'
-                value={search}
-                onPressEnter={() => searchHandler()}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Button
-                type='primary'
-                icon={<SearchOutlined />}
-                onClick={() => searchHandler()}
-              >
-                Search
-              </Button>
-            </Space>
+    <Layout className='layout'>
+      <Content className='layout__container'>
+        <div className='site-layout-content'>
+          {error && <AlertBar error={error} />}
+          <Space style={{ width: '100%', marginBottom: '20px' }}>
+            <Input
+              placeholder='Search repo'
+              value={search}
+              onPressEnter={() => searchHandler()}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Button
+              type='primary'
+              icon={<SearchOutlined />}
+              onClick={() => searchHandler()}
+            >
+              Search
+            </Button>
+          </Space>
 
-            {loading && repos.length > 0 ? (
-              <Skeleton />
-            ) : (
-              <Space direction='vertical' style={{ width: '100%' }}>
-                <PaginationBar
-                  currentPage={currentPage}
-                  paginationHandler={paginationHandler}
-                  pagesCount={pagesCount}
-                  reposPerPage={reposPerPage}
-                  reposPerPageHandler={reposPerPageHandler}
-                />
-                {repos.map((repo) => (
-                  <Repo repo={repo} key={repo.id} />
-                ))}
-              </Space>
-            )}
-          </div>
-        </Content>
-      </Layout>
-    </>
+          {loading && repos.length > 0 ? (
+            <Skeleton />
+          ) : (
+            <Space direction='vertical' style={{ width: '100%' }}>
+              <PaginationBar
+                currentPage={currentPage}
+                paginationHandler={paginationHandler}
+                pagesCount={pagesCount}
+                reposPerPage={reposPerPage}
+                reposPerPageHandler={reposPerPageHandler}
+              />
+              {repos.map((repo) => (
+                <Repo repo={repo} key={repo.id} />
+              ))}
+            </Space>
+          )}
+        </div>
+      </Content>
+    </Layout>
   )
 }
 
