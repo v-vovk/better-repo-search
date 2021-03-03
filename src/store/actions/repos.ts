@@ -13,18 +13,22 @@ export const fetchRepos = (
   try {
     dispatch({ type: ReposActionTypes.FETCH_REPOS })
 
-    if (searchQuery === '') {
-      searchQuery = 'stars:%3E1'
+    if (searchQuery !== '') {
+      // searchQuery = 'stars:%3E1'
+
+      const responce = await axios.get(
+        `${baseUrl}/search/repositories?q=${searchQuery}&sort=stars&per_page=${reposPerPage}&page=${currentPage}`
+      )
+
+      dispatch({
+        type: ReposActionTypes.FETCH_REPOS_SUCCESS,
+        payload: responce.data
+      })
+    } else {
+      dispatch({
+        type: ReposActionTypes.FETCH_REPOS_CLEAR
+      })
     }
-
-    const responce = await axios.get(
-      `${baseUrl}/search/repositories?q=${searchQuery}&sort=stars&per_page=${reposPerPage}&page=${currentPage}`
-    )
-
-    dispatch({
-      type: ReposActionTypes.FETCH_REPOS_SUCCESS,
-      payload: responce.data
-    })
   } catch (error) {
     dispatch({
       type: ReposActionTypes.FETCH_REPOS_ERROR,

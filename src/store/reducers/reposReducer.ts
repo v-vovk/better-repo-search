@@ -25,13 +25,19 @@ export const reposReducer = (
         totalCount: action.payload.total_count,
         incompleteResults: action.payload.incomplete_results
       }
+
     case ReposActionTypes.FETCH_REPOS_ERROR:
       return { ...state, loading: false, error: action.payload }
+
+    case ReposActionTypes.FETCH_REPOS_CLEAR:
+      return { ...state, loading: false, repos: [] }
+
     case ReposActionTypes.SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: action.payload
       }
+
     case ReposActionTypes.SET_REPOS_PER_PAGE:
       return {
         ...state,
