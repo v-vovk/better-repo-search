@@ -1,12 +1,10 @@
 import { ReposActionTypes } from './../../types/repos'
 import { Dispatch } from 'redux'
 import { ReposAction, SetCurrentPage, SetReposPerPage } from '../../types/repos'
-import axios from 'axios'
-
-const baseUrl = process.env.REACT_APP_API_URL
+import api from '../../api'
 
 export const fetchRepos = (
-  searchQuery = 'stars:%3E1',
+  searchQuery = '',
   currentPage = 1,
   reposPerPage = 30
 ) => async (dispatch: Dispatch<ReposAction>) => {
@@ -14,10 +12,8 @@ export const fetchRepos = (
     dispatch({ type: ReposActionTypes.FETCH_REPOS })
 
     if (searchQuery !== '') {
-      // searchQuery = 'stars:%3E1'
-
-      const responce = await axios.get(
-        `${baseUrl}/search/repositories?q=${searchQuery}&sort=stars&per_page=${reposPerPage}&page=${currentPage}`
+      const responce = await api.get(
+        `/search/repositories?q=${searchQuery}&sort=stars&per_page=${reposPerPage}&page=${currentPage}`
       )
 
       dispatch({
