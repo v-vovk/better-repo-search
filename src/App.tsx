@@ -1,8 +1,12 @@
 import React from 'react'
+import Repos from './pages/Repos/Repos'
 
 function App() {
-  process.env.REACT_APP_API_URL
-  return <div className='App'>hello world</div>
+  return (
+    <>
+      <Repos />
+    </>
+  )
 }
 
 export default App

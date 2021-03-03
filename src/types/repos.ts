@@ -4,10 +4,18 @@ export enum ReposActionTypes {
   FETCH_REPOS_ERROR = 'FETCH_REPOS_ERROR'
 }
 
+export interface ReposPayload {
+  items: any[]
+  total_count: number
+  incomplete_results: boolean
+}
+
 export interface ReposState {
   repos: any[]
   loading: boolean
   error: null | string
+  total_count: number
+  incomplete_results: boolean
 }
 
 interface FetchReposAction {
@@ -16,7 +24,7 @@ interface FetchReposAction {
 
 interface FetchReposSuccessAction {
   type: ReposActionTypes.FETCH_REPOS_SUCCESS
-  payload: any[]
+  payload: ReposPayload
 }
 
 interface FetchReposErrorAction {
