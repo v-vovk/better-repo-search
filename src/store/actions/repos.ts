@@ -1,7 +1,7 @@
 import { ReposActionTypes } from './../../types/repos'
 import { Dispatch } from 'redux'
 import { ReposAction, SetCurrentPage, SetReposPerPage } from '../../types/repos'
-import api from '../../api'
+import api from '../../cache'
 
 export const fetchRepos = (
   searchQuery = '',
