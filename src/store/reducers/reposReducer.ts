@@ -4,8 +4,10 @@ const initialState: ReposState = {
   repos: [],
   loading: false,
   error: null,
-  total_count: 0,
-  incomplete_results: false
+  totalCount: 0,
+  incompleteResults: false,
+  reposPerPage: 30,
+  currentPage: 1
 }
 
 export const reposReducer = (
@@ -14,17 +16,27 @@ export const reposReducer = (
 ): ReposState => {
   switch (action.type) {
     case ReposActionTypes.FETCH_REPOS:
-      return { ...state, loading: true }
+      return { ...state, loading: true, error: null }
     case ReposActionTypes.FETCH_REPOS_SUCCESS:
       return {
         ...state,
         loading: false,
         repos: action.payload.items,
-        total_count: action.payload.total_count,
-        incomplete_results: action.payload.incomplete_results
+        totalCount: action.payload.total_count,
+        incompleteResults: action.payload.incomplete_results
       }
     case ReposActionTypes.FETCH_REPOS_ERROR:
       return { ...state, loading: false, error: action.payload }
+    case ReposActionTypes.SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload
+      }
+    case ReposActionTypes.SET_REPOS_PER_PAGE:
+      return {
+        ...state,
+        reposPerPage: action.payload
+      }
 
     default:
       return state
